@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 5495c14dcdea7fc41844d2c6e54ea276
+guid: da29d778276acc942ac5ce35309983b0
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3569712119151759786
-    second: PirateBackground_0
+      213: 1743461550474059107
+    second: CoinBackside_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: PirateBackground_0
+      name: CoinBackside_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 1456
-        height: 816
+        width: 80
+        height: 29
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 65e6d83adb5d57ec0800000000000000
-      internalID: -3569712119151759786
+      spriteID: 36dde8bfa05023810800000000000000
+      internalID: 1743461550474059107
       vertices: []
       indices: 
       edges: []
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      PirateBackground_0: -3569712119151759786
+      CoinBackside_0: 1743461550474059107
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
