@@ -203,8 +203,8 @@ Transform:
   m_GameObject: {fileID: 33376434}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -43, y: -27.1, z: -35}
-  m_LocalScale: {x: 596.2673, y: 422.62247, z: 31.38414}
+  m_LocalPosition: {x: -31, y: -97, z: -48}
+  m_LocalScale: {x: 1079.84, y: 422.62247, z: 31.38414}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -402,6 +402,7 @@ GameObject:
   - component: {fileID: 392467377}
   - component: {fileID: 392467376}
   - component: {fileID: 392467378}
+  - component: {fileID: 392467379}
   m_Layer: 0
   m_Name: Coin
   m_TagString: Untagged
@@ -476,7 +477,7 @@ Transform:
   m_GameObject: {fileID: 392467375}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -105, y: -2, z: -62}
+  m_LocalPosition: {x: -105, y: -43, z: -62}
   m_LocalScale: {x: 135.18588, y: 81.708, z: 81.708}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -500,10 +501,109 @@ MonoBehaviour:
   rotationAxis: {x: 1, y: 0, z: 0}
   jumpHeight: 100
   listenForSpace: 1
+  coinFlipClip: {fileID: 8300000, guid: eaec2a60b248cc84f9b459e81ba6b63e, type: 3}
+  audioSource: {fileID: 392467379}
   upgradeManager: {fileID: 1794636844}
   currencyManager: {fileID: 339993392}
   headChance: 0.15
   initialHeadUp: 1
+--- !u!82 &392467379
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 392467375}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &490251008
 GameObject:
   m_ObjectHideFlags: 0
@@ -1427,10 +1527,14 @@ MonoBehaviour:
   startSecondsFlipTime: 0.8
   startHeadsComboMultiplier: 0.05
   startBaseCoinWorth: 1
-  costHeadsChance: 1
-  costSecondsFlipTime: 1
-  costHeadsComboMultiplier: 1
-  costBaseCoinWorth: 1
+  headsChanceIncrease: 0.05
+  flipTimeDecrease: 0.1
+  comboMultiplierIncrease: 0.1
+  baseCoinWorthIncrease: 0.5
+  costHeadsChance: 10
+  costSecondsFlipTime: 10
+  costHeadsComboMultiplier: 10
+  costBaseCoinWorth: 10
 --- !u!4 &1794636845
 Transform:
   m_ObjectHideFlags: 0

@@ -1,7 +1,5 @@
 using UnityEngine;
-#if DOTWEEN_ENABLED || DOTWEEN
 using DG.Tweening;
-#endif
 
 namespace FlipCoin.Game
 {
@@ -18,13 +16,17 @@ namespace FlipCoin.Game
 		[Header("Girdi")] 
 		[SerializeField] private bool listenForSpace = true;
 
+		[Header("Ses")] 
+		[SerializeField] private AudioClip coinFlipClip;
+		[SerializeField] private AudioSource audioSource;
+
 		[Header("Yoneticiler")] 
 		[SerializeField] private UpgradeManager upgradeManager;
 		[SerializeField] private CurrencyManager currencyManager;
 
 		[Header("Sonuc/RNG")] 
 		[Range(0f, 1f)]
-		[SerializeField] private float headChance = 0.15f; // Baslangicta %15 heads
+		[SerializeField] private float headChance = 0.15f; // Baslangicta %15 heads (UpgradeManager yoksa kullanilir)
 		[SerializeField] private bool initialHeadUp = true; // Baslangic rotasyonu baş mi?
 
 		public bool LastResultIsHead { get; private set; }
@@ -36,9 +38,7 @@ namespace FlipCoin.Game
 		private Vector3 initialPosition;
 		private Quaternion initialRotation;
 
-#if DOTWEEN_ENABLED || DOTWEEN
 		private Sequence activeSequence;
-#endif
 
 		private bool isFlipping;
 
@@ -47,6 +47,16 @@ namespace FlipCoin.Game
 			initialPosition = transform.position;
 			initialRotation = transform.rotation;
 			spriteRenderer = GetComponent<SpriteRenderer>();
+			if (audioSource == null)
+			{
+				audioSource = GetComponent<AudioSource>();
+				if (audioSource == null)
+				{
+					audioSource = gameObject.AddComponent<AudioSource>();
+				}
+				audioSource.playOnAwake = false;
+				audioSource.spatialBlend = 0f;
+			}
 		}
 
 		private void Update()
@@ -67,11 +77,11 @@ namespace FlipCoin.Game
 				return;
 			}
 
-#if !(DOTWEEN_ENABLED || DOTWEEN)
-			Debug.LogWarning("DOTween bulunamadi. Lütfen DOTween'i projeye ekleyin.");
-			return;
-#else
 			isFlipping = true;
+			if (coinFlipClip != null && audioSource != null)
+			{
+				audioSource.PlayOneShot(coinFlipClip);
+			}
 
 			// Her seferinde ayni noktadan baslamak icin konumu/rotasyonu sabitle
 			transform.position = initialPosition;
@@ -136,7 +146,6 @@ namespace FlipCoin.Game
 				isFlipping = false;
 				OnFlipCompleted?.Invoke(resultIsHead);
 			});
-#endif
 		}
 
 		// Inspector uzerinden ekseni hizlica ayarlamak icin yardimci metodlar
