@@ -2593,6 +2593,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1794636845}
   - component: {fileID: 1794636844}
+  - component: {fileID: 1794636846}
   m_Layer: 0
   m_Name: UpgradeManager
   m_TagString: Untagged
@@ -2621,10 +2622,10 @@ MonoBehaviour:
   flipTimeDecrease: 0.1
   comboMultiplierIncrease: 0.1
   baseCoinWorthIncrease: 0.5
-  costHeadsChance: 10
-  costSecondsFlipTime: 10
-  costHeadsComboMultiplier: 10
-  costBaseCoinWorth: 10
+  costHeadsChance: 1
+  costSecondsFlipTime: 1
+  costHeadsComboMultiplier: 1
+  costBaseCoinWorth: 1
 --- !u!4 &1794636845
 Transform:
   m_ObjectHideFlags: 0
@@ -2640,6 +2641,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1794636846
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1794636843}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 444766461dd28e34582b61f45e734a20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FlipCoin.Game.UpgradeUI
+  upgradeManager: {fileID: 1794636844}
+  currencyManager: {fileID: 339993392}
+  headsChanceDescription: {fileID: 1961299410}
+  flipTimeDescription: {fileID: 1405495687}
+  comboDescription: {fileID: 1408412466}
+  coinWorthDescription: {fileID: 345984545}
 --- !u!1 &1961299408
 GameObject:
   m_ObjectHideFlags: 0

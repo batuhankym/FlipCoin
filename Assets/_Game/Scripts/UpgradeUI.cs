@@ -31,6 +31,10 @@ namespace FlipCoin.Game
 			{
 				currencyManager.OnCurrencyChanged += OnCurrencyChanged;
 			}
+			if (upgradeManager != null)
+			{
+				upgradeManager.OnUpgradesChanged += OnUpgradesChanged;
+			}
 		}
 
 		private void OnDisable()
@@ -39,9 +43,18 @@ namespace FlipCoin.Game
 			{
 				currencyManager.OnCurrencyChanged -= OnCurrencyChanged;
 			}
+			if (upgradeManager != null)
+			{
+				upgradeManager.OnUpgradesChanged -= OnUpgradesChanged;
+			}
 		}
 
 		private void OnCurrencyChanged(double newValue)
+		{
+			RefreshUI();
+		}
+
+		private void OnUpgradesChanged()
 		{
 			RefreshUI();
 		}
@@ -61,23 +74,14 @@ namespace FlipCoin.Game
 		{
 			if (textElement == null || upgradeManager == null) return;
 
-			string description = upgradeManager.GetUpgradeDescription(type);
+			string effect = upgradeManager.GetUpgradeEffectSummary(type);
 			double cost = upgradeManager.GetCurrentCost(type);
 			bool canAfford = upgradeManager.CanAffordUpgrade(type);
 			bool isMaxed = upgradeManager.IsUpgradeAtMax(type);
 
-			string statusText = "";
-			if (isMaxed)
-			{
-				statusText = " (MAKSIMUM)";
-			}
-			else if (!canAfford)
-			{
-				statusText = " (YETERSIZ BAKIYE)";
-			}
-
-			textElement.text = $"{description}\nMaliyet: {cost:F0} coin{statusText}";
-			textElement.color = isMaxed ? Color.gray : (canAfford ? Color.white : Color.red);
+			string priceLine = $"${cost:F2}";
+			textElement.text = $"{effect}\n{priceLine}";
+			textElement.color = isMaxed ? Color.yellow : (canAfford ? Color.green : Color.red);
 		}
 
 		public void BuyHeadsChance() 

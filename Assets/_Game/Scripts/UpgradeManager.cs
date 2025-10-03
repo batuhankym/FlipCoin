@@ -38,6 +38,8 @@ namespace FlipCoin.Game
 		private float currentHeadsComboMultiplier;
 		private double currentBaseCoinWorth;
 
+		public System.Action OnUpgradesChanged;
+
 		private void Awake()
 		{
 			if (currencyManager == null)
@@ -54,6 +56,12 @@ namespace FlipCoin.Game
 		public float CurrentSecondsFlipTime => currentSecondsFlipTime;
 		public float CurrentHeadsComboMultiplier => currentHeadsComboMultiplier;
 		public double CurrentBaseCoinWorth => currentBaseCoinWorth;
+
+		// Artis parametrelerine erisim (UI icin)
+		public float HeadsChanceIncrease => headsChanceIncrease;
+		public float FlipTimeDecrease => flipTimeDecrease;
+		public float ComboMultiplierIncrease => comboMultiplierIncrease;
+		public double BaseCoinWorthIncrease => baseCoinWorthIncrease;
 
 		public double GetCurrentCost(UpgradeType type)
 		{
@@ -129,6 +137,7 @@ namespace FlipCoin.Game
 					Debug.Log($"Upgrade: BaseCoinWorth {beforeWorth:F1} -> {currentBaseCoinWorth:F1}, nextCost={costBaseCoinWorth:F0}");
 					break;
 			}
+			OnUpgradesChanged?.Invoke();
 			return true;
 		}
 
@@ -159,6 +168,24 @@ namespace FlipCoin.Game
 				default:
 					return "Bilinmeyen yükseltme";
 			}
+		}
+
+		// Ornek gorseldeki gibi ETKI satiri olustur (butonun ust satiri)
+		public string GetUpgradeEffectSummary(UpgradeType type)
+		{
+			switch (type)
+			{
+				case UpgradeType.HeadsChance:
+					return $"+{headsChanceIncrease * 100f:F0}% HEADS CHANCE";
+				case UpgradeType.SecondsFlipTime:
+					float delta = Mathf.Max(0f, currentSecondsFlipTime * flipTimeDecrease);
+					return $"-{delta:F2} SECONDS FLIP TIME";
+				case UpgradeType.HeadsComboMultiplier:
+					return $"+{comboMultiplierIncrease:F2}x HEADS COMBO MULT";
+				case UpgradeType.BaseCoinWorth:
+					return $"+{baseCoinWorthIncrease:F2} COIN VALUE";
+			}
+			return string.Empty;
 		}
 
 		public bool CanAffordUpgrade(UpgradeType type)
