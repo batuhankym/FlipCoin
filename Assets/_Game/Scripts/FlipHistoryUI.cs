@@ -3,7 +3,7 @@ using TMPro;
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine.UI;
-using System.Collections;
+    using System.Collections;
 
 namespace FlipCoin.Game
 {
