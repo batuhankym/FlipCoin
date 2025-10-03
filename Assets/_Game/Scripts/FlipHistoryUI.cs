@@ -76,6 +76,7 @@ namespace FlipCoin.Game
 			TMP_Text newText = Instantiate(entryPrefab, contentRoot);
 			newText.text = isHead ? "HEADS" : "TAILS";
 			newText.color = isHead ? headsColor : tailsColor;
+			newText.fontStyle = isHead ? FontStyles.Bold : FontStyles.Normal;
 			newText.lineSpacing = textLineSpacing;
 			newText.margin = Vector4.zero;
 
