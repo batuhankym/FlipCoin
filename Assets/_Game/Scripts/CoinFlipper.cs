@@ -24,6 +24,7 @@ namespace FlipCoin.Game
 		[SerializeField] private UpgradeManager upgradeManager;
 		[SerializeField] private CurrencyManager currencyManager;
 		[SerializeField] private FlipHistoryUI flipHistoryUI;
+		[SerializeField] private FlipResultPopup resultPopup;
 
 		[Header("Sonuc/RNG")] 
 		[Range(0f, 1f)]
@@ -145,6 +146,11 @@ namespace FlipCoin.Game
 					currentHeadsCombo = 0;
 				}
 				isFlipping = false;
+				if (resultPopup == null)
+				{
+					resultPopup = FindObjectOfType<FlipResultPopup>();
+				}
+				resultPopup?.Show(resultIsHead, transform.position);
 				flipHistoryUI?.AddFlipResult(resultIsHead);
 				OnFlipCompleted?.Invoke(resultIsHead);
 			});
