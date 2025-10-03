@@ -5,28 +5,28 @@ namespace FlipCoin.Game
 {
 	public class CoinFlipper : MonoBehaviour
 	{
-		[Header("Flip Ayarlari")]
+		[Header("Flip Settings")]
 		[SerializeField] private float flipDurationSeconds = 0.8f;
 		[SerializeField] private int flipRotations = 2;
 		[SerializeField] private Vector3 rotationAxis = new Vector3(1f, 0f, 0f); // X ekseninde flip hissi
 
-		[Header("Ziplama Ayarlari")] 
+		[Header("Jump Settings")] 
 		[SerializeField] private float jumpHeight = 2f; // y ekseninde havalanma miktari
 
-		[Header("Girdi")] 
+		[Header("Input")] 
 		[SerializeField] private bool listenForSpace = true;
 
-		[Header("Ses")] 
+		[Header("Audio")] 
 		[SerializeField] private AudioClip coinFlipClip;
 		[SerializeField] private AudioSource audioSource;
 
-		[Header("Yoneticiler")] 
+		[Header("Managers")] 
 		[SerializeField] private UpgradeManager upgradeManager;
 		[SerializeField] private CurrencyManager currencyManager;
 		[SerializeField] private FlipHistoryUI flipHistoryUI;
 		[SerializeField] private FlipResultPopup resultPopup;
 
-		[Header("Sonuc/RNG")] 
+		[Header("Result/RNG")] 
 		[Range(0f, 1f)]
 		[SerializeField] private float headChance = 0.15f; // Baslangicta %15 heads (UpgradeManager yoksa kullanilir)
 		[SerializeField] private bool initialHeadUp = true; // Baslangic rotasyonu baş mi?
