@@ -23,6 +23,7 @@ namespace FlipCoin.Game
 		[Header("Yoneticiler")] 
 		[SerializeField] private UpgradeManager upgradeManager;
 		[SerializeField] private CurrencyManager currencyManager;
+		[SerializeField] private FlipHistoryUI flipHistoryUI;
 
 		[Header("Sonuc/RNG")] 
 		[Range(0f, 1f)]
@@ -144,6 +145,7 @@ namespace FlipCoin.Game
 					currentHeadsCombo = 0;
 				}
 				isFlipping = false;
+				flipHistoryUI?.AddFlipResult(resultIsHead);
 				OnFlipCompleted?.Invoke(resultIsHead);
 			});
 		}
