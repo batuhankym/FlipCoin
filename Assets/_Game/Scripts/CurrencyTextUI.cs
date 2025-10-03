@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using System.Globalization;
 
 namespace FlipCoin.Game
 {
@@ -7,8 +8,9 @@ namespace FlipCoin.Game
 	{
 		[SerializeField] private CurrencyManager currencyManager;
 		[SerializeField] private TMP_Text targetText;
-		[SerializeField] private string prefix = "Coins: ";
-		[SerializeField] private string numberFormat = "N0"; // Ornek: 12,345
+		[SerializeField] private string currencySymbol = "$";
+		[SerializeField] private string numberFormat = "F2"; // $0.09 gibi
+		[SerializeField] private bool useInvariantCulture = true; // noktali ayrac icin
 
 		private void Awake()
 		{
@@ -19,6 +21,20 @@ namespace FlipCoin.Game
 			if (targetText == null)
 			{
 				targetText = GetComponent<TMP_Text>();
+			}
+			// Eski sahnelerde serialized deger N0 kalmis olabilir; F2'ye zorluyoruz
+			if (string.IsNullOrEmpty(numberFormat) || numberFormat == "N0")
+			{
+				numberFormat = "F2";
+			}
+		}
+
+		private void OnValidate()
+		{
+			// Editor'de de yanlis format kalmasin
+			if (string.IsNullOrEmpty(numberFormat) || numberFormat == "N0")
+			{
+				numberFormat = "F2";
 			}
 		}
 
@@ -50,7 +66,10 @@ namespace FlipCoin.Game
 			{
 				return;
 			}
-			targetText.text = prefix + currencyManager.Coins.ToString(numberFormat);
+			string formatted = useInvariantCulture
+				? currencyManager.Coins.ToString(numberFormat, CultureInfo.InvariantCulture)
+				: currencyManager.Coins.ToString(numberFormat);
+			targetText.text = currencySymbol + formatted;
 		}
 	}
 }

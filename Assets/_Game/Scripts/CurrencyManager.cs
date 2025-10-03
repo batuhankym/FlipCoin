@@ -21,6 +21,7 @@ namespace FlipCoin.Game
 				return;
 			}
 			Coins += amount;
+			Coins = System.Math.Round(Coins, 2, System.MidpointRounding.AwayFromZero);
 			OnCurrencyChanged?.Invoke(Coins);
 		}
 
@@ -35,6 +36,7 @@ namespace FlipCoin.Game
 				return false;
 			}
 			Coins -= amount;
+			Coins = System.Math.Round(Coins, 2, System.MidpointRounding.AwayFromZero);
 			OnCurrencyChanged?.Invoke(Coins);
 			return true;
 		}
