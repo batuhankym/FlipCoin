@@ -1458,7 +1458,6 @@ GameObject:
   - component: {fileID: 1047389351}
   - component: {fileID: 1047389350}
   - component: {fileID: 1047389349}
-  - component: {fileID: 1047389352}
   m_Layer: 5
   m_Name: Rules
   m_TagString: Untagged
@@ -1473,17 +1472,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1047389347}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.04554983, y: 0.04554983, z: 0.04554983}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1169860390}
+  m_Father: {fileID: 1701271817}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.117665514, y: 0.80278736}
   m_AnchorMax: {x: 0.28300002, y: 0.89112073}
-  m_AnchoredPosition: {x: 334, y: -219}
-  m_SizeDelta: {x: 84.4435, y: 4.3629}
+  m_AnchoredPosition: {x: 0.01711, y: 2.08109}
+  m_SizeDelta: {x: 93.7529, y: 44.7852}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1047389349
 MonoBehaviour:
@@ -1498,12 +1497,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FlipCoin.Game.TypewriterUI
   targetText: {fileID: 1047389350}
-  canvasGroup: {fileID: 1047389352}
+  canvasGroup: {fileID: 1701271818}
+  overrideCanvasGroup: {fileID: 1701271818}
+  extraUiGraphicsToFade: []
+  extraSpriteRenderersToFade:
+  - {fileID: 1701271819}
   lines:
   - Welcome to the Flip Coin game.
   - The rules are simple.
-  - Make the necessary upgrades,
-  - and if you get heads 10 times in a row, you win.
+  - Make the necessary upgrades
+  - If you get heads 10 times in a row
+  - You Win
   - Good luck!
   charactersPerSecond: 30
   linePauseSeconds: 1
@@ -1514,6 +1518,8 @@ MonoBehaviour:
   playOnEnable: 1
   clearOnStart: 1
   destroyOnFinish: 0
+  preferParentCanvasGroup: 1
+  destroyCanvasGroupOwner: 0
 --- !u!114 &1047389350
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1561,8 +1567,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 8
-  m_fontSizeBase: 8
+  m_fontSize: 5
+  m_fontSizeBase: 5
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1571,9 +1577,9 @@ MonoBehaviour:
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
   m_textAlignment: 65535
-  m_characterSpacing: 0
-  m_wordSpacing: 0
-  m_lineSpacing: 0
+  m_characterSpacing: 5
+  m_wordSpacing: 1
+  m_lineSpacing: 100
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
@@ -1599,7 +1605,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: -23.188782, w: -30.366463}
+  m_margin: {x: 0, y: 0, z: -1.3169632, w: -1.0583267}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -1613,18 +1619,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1047389347}
   m_CullTransparentMesh: 1
---- !u!225 &1047389352
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1047389347}
-  m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 1
-  m_BlocksRaycasts: 1
-  m_IgnoreParentGroups: 0
 --- !u!1 &1058523207
 GameObject:
   m_ObjectHideFlags: 0
@@ -2004,7 +1998,7 @@ RectTransform:
   m_Children:
   - {fileID: 1058523208}
   - {fileID: 1712413495}
-  - {fileID: 1047389348}
+  - {fileID: 1701271817}
   - {fileID: 1492598442}
   - {fileID: 654396893}
   - {fileID: 1795632416}
@@ -3022,6 +3016,110 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1701271816
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1701271817}
+  - component: {fileID: 1701271819}
+  - component: {fileID: 1701271818}
+  m_Layer: 0
+  m_Name: RulesParent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1701271817
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1701271816}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -160.6, y: 8, z: 0}
+  m_LocalScale: {x: 21.95398, y: 21.95398, z: 21.95398}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1047389348}
+  m_Father: {fileID: 1169860390}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!225 &1701271818
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1701271816}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!212 &1701271819
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1701271816}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: -331536717633062053, guid: f92d0c2efc7c5344db008e2265549a7f, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 7.06, y: 8.71}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
 --- !u!1 &1712413494
 GameObject:
   m_ObjectHideFlags: 0
@@ -3057,7 +3155,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.117665514, y: 0.80278736}
   m_AnchorMax: {x: 0.28300002, y: 0.89112073}
-  m_AnchoredPosition: {x: -3.4487925, y: 0.081726074}
+  m_AnchoredPosition: {x: 18.4, y: 0.081726074}
   m_SizeDelta: {x: 7.3665056, y: 4.362898}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1712413496

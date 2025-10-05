@@ -11,6 +11,9 @@ namespace FlipCoin.Game
 		[Header("Bagimliliklar")]
 		[SerializeField] private TMP_Text targetText;
 		[SerializeField] private CanvasGroup canvasGroup;
+		[SerializeField] private CanvasGroup overrideCanvasGroup; // Parşömen'in CanvasGroup'u (isteğe bağlı)
+		[SerializeField] private UnityEngine.UI.Graphic[] extraUiGraphicsToFade; // CanvasGroup kapsamazsa
+		[SerializeField] private SpriteRenderer[] extraSpriteRenderersToFade; // UI degilse (SpriteRenderer)
 
 		[Header("Icerik")]
 		[SerializeField] private List<string> lines = new List<string>();
@@ -29,6 +32,8 @@ namespace FlipCoin.Game
 		[SerializeField] private bool playOnEnable = true;
 		[SerializeField] private bool clearOnStart = true;
 		[SerializeField] private bool destroyOnFinish = false;
+		[SerializeField] private bool preferParentCanvasGroup = true; // Parşömen gibi üst objeyi fade et
+		[SerializeField] private bool destroyCanvasGroupOwner = false; // Fade bitince parşömeni kapat/yok et
 
 		private Coroutine playRoutine;
 
@@ -38,14 +43,32 @@ namespace FlipCoin.Game
 			{
 				targetText = GetComponentInChildren<TMP_Text>();
 			}
-			if (canvasGroup == null)
+			// CanvasGroup seçim önceliği: override → parent (tercih) → local mevcut → local ekle
+			if (overrideCanvasGroup != null)
 			{
-				canvasGroup = GetComponent<CanvasGroup>();
-				if (canvasGroup == null)
-				{
-					canvasGroup = gameObject.AddComponent<CanvasGroup>();
-				}
+				canvasGroup = overrideCanvasGroup;
 			}
+			else
+			{
+				CanvasGroup found = null;
+				if (preferParentCanvasGroup)
+				{
+					found = GetComponentInParent<CanvasGroup>();
+				}
+				if (found == null)
+				{
+					found = GetComponent<CanvasGroup>();
+				}
+				if (found == null)
+				{
+					found = gameObject.AddComponent<CanvasGroup>();
+				}
+				canvasGroup = found;
+			}
+			// Güvenli: input etkileşimini de kapatıp/açalım
+			canvasGroup.ignoreParentGroups = false;
+			canvasGroup.interactable = false;
+			canvasGroup.blocksRaycasts = true;
 			if (audioSource == null)
 			{
 				audioSource = GetComponent<AudioSource>();
@@ -53,7 +76,9 @@ namespace FlipCoin.Game
 				{
 					audioSource = gameObject.AddComponent<AudioSource>();
 				}
-				audioSource.playOnAwake = false;
+				audioSource.clip = null; // sahnede atanmis bir clip varsa calmasin
+				audioSource.playOnAwake = false; // acilis seslerini engelle
+				audioSource.Stop(); // varsa calmayi kesin
 				audioSource.spatialBlend = 0f;
 			}
 		}
@@ -90,6 +115,7 @@ namespace FlipCoin.Game
 			}
 			float charDelay = charactersPerSecond > 0.01f ? (1f / charactersPerSecond) : 0.033f;
 			float lastSoundTime = -999f;
+			bool skipFirstSound = true; // ilk karakterde ses oynatma
 
 			for (int i = 0; i < lines.Count; i++)
 			{
@@ -102,11 +128,12 @@ namespace FlipCoin.Game
 						targetText.text += ch;
 					}
 					// harf sesi (çok sık çalmamak için min interval)
-					if (typeSound != null && audioSource != null && (Time.time - lastSoundTime) >= minSoundInterval)
+					if (!skipFirstSound && typeSound != null && audioSource != null && (Time.time - lastSoundTime) >= minSoundInterval)
 					{
 						audioSource.PlayOneShot(typeSound);
 						lastSoundTime = Time.time;
 					}
+					skipFirstSound = false;
 					yield return new WaitForSeconds(charDelay);
 				}
 				// satir bitti, alt satira gec
@@ -122,8 +149,33 @@ namespace FlipCoin.Game
 
 			// fade out
 			canvasGroup.DOKill();
-			canvasGroup.DOFade(0f, 0.4f).SetEase(Ease.OutQuad);
+			// Parent CanvasGroup kullanılıyorsa, parent'ın alpha'sını da bu coroutine yönetir
+			canvasGroup.DOFade(0f, 0.4f).SetEase(Ease.OutQuad).SetUpdate(true);
+			// Ek hedefleri de güvence altına al (ayrı Canvas / SpriteRenderer durumları)
+			if (extraUiGraphicsToFade != null)
+			{
+				foreach (var g in extraUiGraphicsToFade)
+				{
+					if (g == null) continue;
+					g.DOKill();
+					g.DOFade(0f, 0.4f).SetEase(Ease.OutQuad).SetUpdate(true);
+				}
+			}
+			if (extraSpriteRenderersToFade != null)
+			{
+				foreach (var sr in extraSpriteRenderersToFade)
+				{
+					if (sr == null) continue;
+					sr.DOKill();
+					sr.DOFade(0f, 0.4f).SetEase(Ease.OutQuad).SetUpdate(true);
+				}
+			}
 			yield return new WaitForSeconds(0.45f);
+			if (destroyCanvasGroupOwner && canvasGroup != null)
+			{
+				Destroy(canvasGroup.gameObject);
+				yield break;
+			}
 			if (destroyOnFinish)
 			{
 				Destroy(gameObject);
