@@ -26,6 +26,11 @@ namespace FlipCoin.Game
 		[SerializeField] private FlipHistoryUI flipHistoryUI;
 		[SerializeField] private FlipResultPopup resultPopup;
 
+		[Header("Win")]
+		[SerializeField] private int headsInRowToWin = 10;
+		public System.Action OnWin;
+		private bool hasWon;
+
 		[Header("Result/RNG")] 
 		[Range(0f, 1f)]
 		[SerializeField] private float headChance = 0.15f; // Baslangicta %15 heads (UpgradeManager yoksa kullanilir)
@@ -138,6 +143,12 @@ namespace FlipCoin.Game
 					float comboMult = upgradeManager != null ? upgradeManager.CurrentHeadsComboMultiplier : 0f;
 					double reward = baseWorth * (1d + (double)comboMult * currentHeadsCombo);
 					currencyManager?.AddCoins(reward);
+					// Win kontrolu
+					if (!hasWon && currentHeadsCombo >= headsInRowToWin)
+					{
+						hasWon = true;
+						OnWin?.Invoke();
+					}
                     
 				}
 				else

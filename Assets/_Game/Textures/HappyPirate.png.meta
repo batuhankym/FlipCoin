@@ -1,13 +1,10 @@
 fileFormatVersion: 2
-guid: 099ad0b3d7ed6794f98dd3282beb5f8e
+guid: a3a99a50347dc9c4fb5fe1966c71e290
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6596585899589142782
-    second: ChatGPT Image Oct 3, 2025, 11_32_17 PM_0
-  - first:
-      213: -2017178590328532169
-    second: ChatGPT Image Oct 3, 2025, 11_32_17 PM_1
+      213: 454384701110337721
+    second: HappyPirate_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -75,7 +72,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 512
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -99,17 +96,30 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WindowsStoreApps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ChatGPT Image Oct 3, 2025, 11_32_17 PM_0
+      name: HappyPirate_0
       rect:
         serializedVersion: 2
-        x: 12
-        y: 0
-        width: 743
-        height: 1024
+        x: 116
+        y: 97
+        width: 796
+        height: 814
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -118,30 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: ef88c5bece7cb8b50800000000000000
-      internalID: 6596585899589142782
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ChatGPT Image Oct 3, 2025, 11_32_17 PM_1
-      rect:
-        serializedVersion: 2
-        x: 782
-        y: 0
-        width: 731
-        height: 1024
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 733d1f272ca8104e0800000000000000
-      internalID: -2017178590328532169
+      spriteID: 9b0cd0d6a7c4e4600800000000000000
+      internalID: 454384701110337721
       vertices: []
       indices: 
       edges: []
@@ -150,7 +138,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 24434b1eaea16aa4ebaa77bab589d662
+    spriteID: 0e71986382a7e4e47b34c696e0ef6a7d
     internalID: 0
     vertices: []
     indices: 
@@ -158,10 +146,11 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      ChatGPT Image Oct 3, 2025, 11_32_17 PM_0: 6596585899589142782
-      ChatGPT Image Oct 3, 2025, 11_32_17 PM_1: -2017178590328532169
+      HappyPirate_0: 454384701110337721
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
