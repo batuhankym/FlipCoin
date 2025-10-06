@@ -7,7 +7,7 @@ namespace FlipCoin.Game
 	{
 		[SerializeField] private UpgradeManager upgradeManager;
 		[SerializeField] private TMP_Text targetText;
-		[SerializeField] private string numberFormat = "F1"; // %15.0 gibi
+		[SerializeField] private string numberFormat = "F1"; 
 
 		private void Awake()
 		{
@@ -31,7 +31,6 @@ namespace FlipCoin.Game
 
 		private void Start()
 		{
-			// Start, sahnedeki diger Awake'lerden sonra cagrilir; ilk degeri dogru yansitir
 			RefreshNow();
 		}
 

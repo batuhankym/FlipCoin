@@ -16,16 +16,16 @@ namespace FlipCoin.Game
 		[SerializeField] private CurrencyManager currencyManager;
 
 	[Header("Baslangic Degerleri")]
-	[SerializeField] private float startHeadsChance = 0.15f; // %15 (daha makul baslangic)
-	[SerializeField] private float startSecondsFlipTime = 0.8f; // sn
-	[SerializeField] private float startHeadsComboMultiplier = 0.05f; // lineer artis carpani
+	[SerializeField] private float startHeadsChance = 0.15f; 
+	[SerializeField] private float startSecondsFlipTime = 0.8f; 
+	[SerializeField] private float startHeadsComboMultiplier = 0.05f; 
 	[SerializeField] private double startBaseCoinWorth = 1d;
 
 	[Header("Yukseltme Artis Oranlari")]
-	[SerializeField] private float headsChanceIncrease = 0.05f; // Her yukseltmede %5 artis (fail-carpani)
-	[SerializeField] private float flipTimeDecrease = 0.1f; // Her yukseltmede %10 hizlanma
-	[SerializeField] private float comboMultiplierIncrease = 0.1f; // Her yukseltmede %10 artis
-	[SerializeField] private double baseCoinWorthIncrease = 0.5d; // Her yukseltmede %50 artis
+	[SerializeField] private float headsChanceIncrease = 0.05f; 
+	[SerializeField] private float flipTimeDecrease = 0.1f; 
+	[SerializeField] private float comboMultiplierIncrease = 0.1f; 
+	[SerializeField] private double baseCoinWorthIncrease = 0.5d; 
 
 	[Header("Baslangic Maliyetleri (x2.5 artis)")]
 	[SerializeField] private double costHeadsChance = 10d;
@@ -47,7 +47,7 @@ namespace FlipCoin.Game
 				currencyManager = FindObjectOfType<CurrencyManager>();
 			}
 			currentHeadsChance = Mathf.Clamp01(startHeadsChance);
-			currentSecondsFlipTime = Mathf.Max(0.1f, startSecondsFlipTime); // Minimum 0.1 saniye
+			currentSecondsFlipTime = Mathf.Max(0.1f, startSecondsFlipTime); 
 			currentHeadsComboMultiplier = Mathf.Max(0f, startHeadsComboMultiplier);
 			currentBaseCoinWorth = System.Math.Max(0d, startBaseCoinWorth);
 		}
@@ -57,7 +57,6 @@ namespace FlipCoin.Game
 		public float CurrentHeadsComboMultiplier => currentHeadsComboMultiplier;
 		public double CurrentBaseCoinWorth => currentBaseCoinWorth;
 
-		// Artis parametrelerine erisim (UI icin)
 		public float HeadsChanceIncrease => headsChanceIncrease;
 		public float FlipTimeDecrease => flipTimeDecrease;
 		public float ComboMultiplierIncrease => comboMultiplierIncrease;
@@ -83,7 +82,6 @@ namespace FlipCoin.Game
 			}
 			double price = GetCurrentCost(type);
 
-			// On-satis validasyonlari (cap kontrol vb.)
 			switch (type)
 			{
 				case UpgradeType.HeadsChance:
@@ -111,15 +109,13 @@ namespace FlipCoin.Game
 			{
 				case UpgradeType.HeadsChance:
 					float beforeChance = currentHeadsChance;
-					// Fail-carpani yaklasimi: p = 1 - (1-p) * (1-delta)
 					currentHeadsChance = 1f - (1f - currentHeadsChance) * (1f - headsChanceIncrease);
 					currentHeadsChance = Mathf.Clamp01(currentHeadsChance);
-					costHeadsChance *= 2.5d; // Daha makul maliyet artisi
+					costHeadsChance *= 2.5d;
 					Debug.Log($"Upgrade: HeadsChance {beforeChance:F3} -> {currentHeadsChance:F3}, nextCost={costHeadsChance:F0}");
 					break;
 				case UpgradeType.SecondsFlipTime:
 					float beforeTime = currentSecondsFlipTime;
-					// Hizlanma: süreyi azalt (0.9x carpan)
 					currentSecondsFlipTime = Mathf.Max(0.1f, currentSecondsFlipTime * (1f - flipTimeDecrease));
 					costSecondsFlipTime *= 2.5d;
 					Debug.Log($"Upgrade: SecondsFlipTime {beforeTime:F2} -> {currentSecondsFlipTime:F2}, nextCost={costSecondsFlipTime:F0}");
@@ -141,13 +137,11 @@ namespace FlipCoin.Game
 			return true;
 		}
 
-		// UI kolayligi icin helper metodlar
 		public void BuyHeadsChance() { TryBuyUpgrade(UpgradeType.HeadsChance); }
 		public void BuySecondsFlipTime() { TryBuyUpgrade(UpgradeType.SecondsFlipTime); }
 		public void BuyHeadsComboMultiplier() { TryBuyUpgrade(UpgradeType.HeadsComboMultiplier); }
 		public void BuyBaseCoinWorth() { TryBuyUpgrade(UpgradeType.BaseCoinWorth); }
 
-		// UI icin yardimci metodlar
 		public string GetUpgradeDescription(UpgradeType type)
 		{
 			switch (type)
@@ -170,7 +164,6 @@ namespace FlipCoin.Game
 			}
 		}
 
-		// Ornek gorseldeki gibi ETKI satiri olustur (butonun ust satiri)
 		public string GetUpgradeEffectSummary(UpgradeType type)
 		{
 			switch (type)

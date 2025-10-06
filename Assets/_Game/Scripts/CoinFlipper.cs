@@ -8,10 +8,10 @@ namespace FlipCoin.Game
 		[Header("Flip Settings")]
 		[SerializeField] private float flipDurationSeconds = 0.8f;
 		[SerializeField] private int flipRotations = 2;
-		[SerializeField] private Vector3 rotationAxis = new Vector3(1f, 0f, 0f); // X ekseninde flip hissi
+		[SerializeField] private Vector3 rotationAxis = new Vector3(1f, 0f, 0f); 
 
 		[Header("Jump Settings")] 
-		[SerializeField] private float jumpHeight = 2f; // y ekseninde havalanma miktari
+		[SerializeField] private float jumpHeight = 2f; 
 
 		[Header("Input")] 
 		[SerializeField] private bool listenForSpace = true;
@@ -45,11 +45,11 @@ namespace FlipCoin.Game
 
 		[Header("Result/RNG")] 
 		[Range(0f, 1f)]
-		[SerializeField] private float headChance = 0.15f; // Baslangicta %15 heads (UpgradeManager yoksa kullanilir)
-		[SerializeField] private bool initialHeadUp = true; // Baslangic rotasyonu baş mi?
+		[SerializeField] private float headChance = 0.15f; 
+		[SerializeField] private bool initialHeadUp = true; 
 
 		public bool LastResultIsHead { get; private set; }
-		public System.Action<bool> OnFlipCompleted; // true=head, false=tail
+		public System.Action<bool> OnFlipCompleted; 
 
 		private int currentHeadsCombo;
 		private SpriteRenderer spriteRenderer;
@@ -86,9 +86,7 @@ namespace FlipCoin.Game
 			}
 		}
 
-		/// <summary>
-		/// UI Button gibi harici tetiklemeler icin cagirin.
-		/// </summary>
+		
 		public void TriggerFlip()
 		{
 			if (!flipEnabled || isFlipping)
@@ -102,11 +100,9 @@ namespace FlipCoin.Game
 				audioSource.PlayOneShot(coinFlipClip);
 			}
 
-			// Her seferinde ayni noktadan baslamak icin konumu/rotasyonu sabitle
 			transform.position = initialPosition;
 			transform.rotation = initialRotation;
 
-			// Degerleri yoneticilerden cek (varsa)
 			if (upgradeManager == null)
 			{
 				upgradeManager = FindObjectOfType<UpgradeManager>();
@@ -119,34 +115,27 @@ namespace FlipCoin.Game
 			float chance = upgradeManager != null ? upgradeManager.CurrentHeadsChance : headChance;
 			float duration = upgradeManager != null ? upgradeManager.CurrentSecondsFlipTime : flipDurationSeconds;
 
-			// RNG: Sonucu belirle (true=head)
 			bool resultIsHead = Random.value < chance;
 			LastResultIsHead = resultIsHead;
 
-			// Hedef rotasyon (FastBeyond360 ile tam turlar atarak, secilen yuze gore 0/180° offset)
 			Vector3 axisNorm = rotationAxis.sqrMagnitude > 0.0001f ? rotationAxis.normalized : Vector3.right;
 			bool needHalfTurnRelativeToInitial = (initialHeadUp != resultIsHead);
 			float relativeEndOffset = needHalfTurnRelativeToInitial ? 360f : 0f;
 			Vector3 targetEuler = initialRotation.eulerAngles + (axisNorm * (360f * flipRotations + relativeEndOffset));
 
-			// Yukari asagi hareket: Y ekseninde ziplama
 			float half = duration * 0.5f;
 
 			activeSequence?.Kill();
 			activeSequence = DOTween.Sequence();
 
-			// Donme ve pozisyon degisimi ayni anda baslasin
 			activeSequence.Insert(0f, transform.DORotate(targetEuler, duration, RotateMode.FastBeyond360).SetEase(Ease.OutCubic));
 			activeSequence.Insert(0f, transform.DOMoveY(initialPosition.y + jumpHeight, half).SetEase(Ease.OutQuad));
-			// 0.5x sure sonra asagi inis baslasin
 			activeSequence.Insert(half, transform.DOMoveY(initialPosition.y, half).SetEase(Ease.InQuad));
 
 			activeSequence.OnComplete(() =>
 			{
-				// Tam deterministik bitis: pozisyonu sabitle, yuzu hedefe snap et (0/180°)
 				transform.position = initialPosition;
 				transform.rotation = Quaternion.Euler(initialRotation.eulerAngles + (axisNorm * relativeEndOffset));
-				// Odul/Kombo
 				if (resultIsHead)
 				{
 					if (spriteRenderer != null) spriteRenderer.sortingOrder = 1;
@@ -155,7 +144,6 @@ namespace FlipCoin.Game
 					float comboMult = upgradeManager != null ? upgradeManager.CurrentHeadsComboMultiplier : 0f;
 					double reward = baseWorth * (1d + (double)comboMult * currentHeadsCombo);
 					currencyManager?.AddCoins(reward);
-					// Win kontrolu
 					if (!hasWon && currentHeadsCombo >= headsInRowToWin)
 					{
 						hasWon = true;
@@ -212,7 +200,6 @@ namespace FlipCoin.Game
 			SetFlipEnabled(!FlipEnabled);
 		}
 
-		// Inspector uzerinden ekseni hizlica ayarlamak icin yardimci metodlar
 		[ContextMenu("Eksen: X (Flip)")]
 		private void SetAxisX()
 		{

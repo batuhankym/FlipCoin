@@ -9,8 +9,8 @@ namespace FlipCoin.Game
 		[SerializeField] private CurrencyManager currencyManager;
 		[SerializeField] private TMP_Text targetText;
 		[SerializeField] private string currencySymbol = "$";
-		[SerializeField] private string numberFormat = "F2"; // $0.09 gibi
-		[SerializeField] private bool useInvariantCulture = true; // noktali ayrac icin
+		[SerializeField] private string numberFormat = "F2"; 
+		[SerializeField] private bool useInvariantCulture = true; 
 
 		private void Awake()
 		{
@@ -22,7 +22,6 @@ namespace FlipCoin.Game
 			{
 				targetText = GetComponent<TMP_Text>();
 			}
-			// Eski sahnelerde serialized deger N0 kalmis olabilir; F2'ye zorluyoruz
 			if (string.IsNullOrEmpty(numberFormat) || numberFormat == "N0")
 			{
 				numberFormat = "F2";
@@ -31,7 +30,6 @@ namespace FlipCoin.Game
 
 		private void OnValidate()
 		{
-			// Editor'de de yanlis format kalmasin
 			if (string.IsNullOrEmpty(numberFormat) || numberFormat == "N0")
 			{
 				numberFormat = "F2";

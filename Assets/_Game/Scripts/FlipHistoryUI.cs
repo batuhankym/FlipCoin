@@ -9,8 +9,8 @@ namespace FlipCoin.Game
 {
 	public class FlipHistoryUI : MonoBehaviour
 	{
-		[SerializeField] private RectTransform contentRoot; // ScrollView'in Content'i
-		[SerializeField] private TMP_Text entryPrefab; // TMP_Text içeren prefab
+		[SerializeField] private RectTransform contentRoot; 
+		[SerializeField] private TMP_Text entryPrefab; 
 		[SerializeField] private int maxEntries = 15;
 		[Header("Layout")]
 		[SerializeField] private VerticalLayoutGroup verticalLayoutGroup;
@@ -23,14 +23,14 @@ namespace FlipCoin.Game
 		[SerializeField] private int paddingRight = 0;
 		[SerializeField] private Color headsColor = new Color(0.25f, 0.85f, 0.4f);
 		[SerializeField] private Color tailsColor = new Color(0.9f, 0.25f, 0.25f);
-		[SerializeField] private float enterOffsetY = 30f; // Layout yoksa kayma mesafesi
+		[SerializeField] private float enterOffsetY = 30f; 
 		[SerializeField] private float enterDuration = 0.2f;
 		[SerializeField] private Ease enterEase = Ease.OutCubic;
-		[SerializeField] private bool useScaleAnimation = true; // Layout varken scale+fade belirgin olur
+		[SerializeField] private bool useScaleAnimation = true; 
 		[SerializeField] private float scaleFrom = 0.95f;
 
 		[Header("Scroll")]
-		[SerializeField] private ScrollRect scrollRect; // otomatik en alta kaydırma için
+		[SerializeField] private ScrollRect scrollRect; 
 		[SerializeField] private bool autoScrollToBottom = true;
 
 		private readonly List<RectTransform> entries = new List<RectTransform>();
@@ -54,8 +54,8 @@ namespace FlipCoin.Game
 					verticalLayoutGroup.padding.bottom = paddingBottom;
 					verticalLayoutGroup.padding.left = paddingLeft;
 					verticalLayoutGroup.padding.right = paddingRight;
-					verticalLayoutGroup.childControlHeight = true; // metin yüksekliği kadar
-					verticalLayoutGroup.childForceExpandHeight = false; // gereksiz boşluk olmasın
+					verticalLayoutGroup.childControlHeight = true; 
+					verticalLayoutGroup.childForceExpandHeight = false; 
 				}
 			}
 		}
@@ -80,7 +80,6 @@ namespace FlipCoin.Game
 			newText.lineSpacing = textLineSpacing;
 			newText.margin = Vector4.zero;
 
-			// Olası LayoutElement'ı sıfırla (fazla yükseklik yaratmasın)
 			var layoutElement = newText.GetComponent<LayoutElement>();
 			if (layoutElement != null)
 			{
@@ -90,10 +89,8 @@ namespace FlipCoin.Game
 			}
 
 			RectTransform rt = newText.rectTransform;
-			// En alta yerleştir (yeni öğe altta belirsin, eskiler yukarı itsin)
 			rt.SetAsLastSibling();
 
-			// Giriş animasyonu: layout varsa scale+fade; yoksa kayma+fade
 			CanvasGroup cg = newText.GetComponent<CanvasGroup>();
 			if (cg == null) cg = newText.gameObject.AddComponent<CanvasGroup>();
 			cg.alpha = 0f;
@@ -141,7 +138,7 @@ namespace FlipCoin.Game
 
 		private IEnumerator LateScrollToBottom()
 		{
-			yield return null; // bir sonraki frame
+			yield return null; 
 			float target = (contentRoot.pivot.y >= 0.5f) ? 0f : 1f;
 			scrollRect.verticalNormalizedPosition = target;
 		}

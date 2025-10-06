@@ -63,7 +63,6 @@ namespace FlipCoin.Game
 		{
 			if (upgradeManager == null) return;
 
-			// Her yükseltme için açıklama ve durum güncelle
 			UpdateUpgradeText(UpgradeType.HeadsChance, headsChanceDescription);
 			UpdateUpgradeText(UpgradeType.SecondsFlipTime, flipTimeDescription);
 			UpdateUpgradeText(UpgradeType.HeadsComboMultiplier, comboDescription);
