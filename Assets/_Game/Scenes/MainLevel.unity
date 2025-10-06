@@ -670,6 +670,7 @@ MonoBehaviour:
   rotationAxis: {x: 1, y: 0, z: 0}
   jumpHeight: 200
   listenForSpace: 1
+  flipEnabled: 1
   coinFlipClip: {fileID: 8300000, guid: eaec2a60b248cc84f9b459e81ba6b63e, type: 3}
   audioSource: {fileID: 392467379}
   upgradeManager: {fileID: 1794636844}
@@ -1474,7 +1475,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1047389347}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -0.04}
   m_LocalScale: {x: 0.04554983, y: 0.04554983, z: 0.04554983}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1521,6 +1522,9 @@ MonoBehaviour:
   destroyOnFinish: 0
   preferParentCanvasGroup: 1
   destroyCanvasGroupOwner: 0
+  coinFlipper: {fileID: 392467378}
+  lockFlipDuringPlay: 1
+  unlockFlipOnFinish: 1
 --- !u!114 &1047389350
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1806,7 +1810,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 0.1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -2526,8 +2530,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.37316206, y: 0.01452163}
   m_AnchorMax: {x: 0.63000005, y: 0.96854293}
-  m_AnchoredPosition: {x: -0.8458252, y: -1.8945618}
-  m_SizeDelta: {x: 6.3643985, y: 5.364532}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: -0.0000015497208, y: -0.0000076293945}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1492598443
 MonoBehaviour:
@@ -3044,7 +3048,7 @@ Transform:
   m_GameObject: {fileID: 1701271816}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -160.6, y: 8, z: 0}
+  m_LocalPosition: {x: 0, y: 8, z: 0}
   m_LocalScale: {x: 21.95398, y: 21.95398, z: 21.95398}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3528,7 +3532,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FlipCoin.Game.UpgradeManager
   currencyManager: {fileID: 339993392}
   startHeadsChance: 0.15
-  startSecondsFlipTime: 1.5
+  startSecondsFlipTime: 2
   startHeadsComboMultiplier: 0.05
   startBaseCoinWorth: 1
   headsChanceIncrease: 0.05

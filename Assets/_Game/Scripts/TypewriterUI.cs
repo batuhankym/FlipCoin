@@ -35,6 +35,11 @@ namespace FlipCoin.Game
 		[SerializeField] private bool preferParentCanvasGroup = true; // Parşömen gibi üst objeyi fade et
 		[SerializeField] private bool destroyCanvasGroupOwner = false; // Fade bitince parşömeni kapat/yok et
 
+		[Header("Gameplay Hooks")]
+		[SerializeField] private CoinFlipper coinFlipper;
+		[SerializeField] private bool lockFlipDuringPlay = true;
+		[SerializeField] private bool unlockFlipOnFinish = true;
+
 		private Coroutine playRoutine;
 
 		private void Awake()
@@ -81,6 +86,10 @@ namespace FlipCoin.Game
 				audioSource.Stop(); // varsa calmayi kesin
 				audioSource.spatialBlend = 0f;
 			}
+			if (coinFlipper == null)
+			{
+				coinFlipper = FindObjectOfType<CoinFlipper>();
+			}
 		}
 
 		private void OnEnable()
@@ -102,6 +111,11 @@ namespace FlipCoin.Game
 			if (playRoutine != null)
 			{
 				StopCoroutine(playRoutine);
+			}
+			if (lockFlipDuringPlay && coinFlipper != null)
+			{
+				coinFlipper.DisableFlip();
+				Debug.Log("[TypewriterUI] Flip kilitlendi (oynatim basladi)");
 			}
 			playRoutine = StartCoroutine(PlayRoutine());
 		}
@@ -171,6 +185,11 @@ namespace FlipCoin.Game
 				}
 			}
 			yield return new WaitForSeconds(0.45f);
+			if (unlockFlipOnFinish && coinFlipper != null)
+			{
+				coinFlipper.EnableFlip();
+				Debug.Log("[TypewriterUI] Flip acildi (oynatim bitti)");
+			}
 			if (destroyCanvasGroupOwner && canvasGroup != null)
 			{
 				Destroy(canvasGroup.gameObject);

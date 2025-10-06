@@ -16,6 +16,18 @@ namespace FlipCoin.Game
 		[Header("Input")] 
 		[SerializeField] private bool listenForSpace = true;
 
+		[Header("Gameplay Locks")]
+		[SerializeField] private bool flipEnabled = true;
+		public bool FlipEnabled
+		{
+			get { return flipEnabled; }
+			set
+			{
+				flipEnabled = value;
+				Debug.Log($"[CoinFlipper] flipEnabled set to {flipEnabled}");
+			}
+		}
+
 		[Header("Audio")] 
 		[SerializeField] private AudioClip coinFlipClip;
 		[SerializeField] private AudioSource audioSource;
@@ -68,7 +80,7 @@ namespace FlipCoin.Game
 
 		private void Update()
 		{
-			if (listenForSpace && !isFlipping && Input.GetKeyDown(KeyCode.Space))
+			if (listenForSpace && flipEnabled && !isFlipping && Input.GetKeyDown(KeyCode.Space))
 			{
 				TriggerFlip();
 			}
@@ -79,7 +91,7 @@ namespace FlipCoin.Game
 		/// </summary>
 		public void TriggerFlip()
 		{
-			if (isFlipping)
+			if (!flipEnabled || isFlipping)
 			{
 				return;
 			}
@@ -165,6 +177,39 @@ namespace FlipCoin.Game
 				flipHistoryUI?.AddFlipResult(resultIsHead);
 				OnFlipCompleted?.Invoke(resultIsHead);
 			});
+		}
+
+		public void SetFlipEnabled(bool enabled)
+		{
+			FlipEnabled = enabled;
+		}
+
+		public void EnableFlip()
+		{
+			SetFlipEnabled(true);
+		}
+
+		public void DisableFlip()
+		{
+			SetFlipEnabled(false);
+		}
+
+		[ContextMenu("Flip: Enable (Debug)")]
+		private void CtxEnable()
+		{
+			EnableFlip();
+		}
+
+		[ContextMenu("Flip: Disable (Debug)")]
+		private void CtxDisable()
+		{
+			DisableFlip();
+		}
+
+		[ContextMenu("Flip: Toggle (Debug)")]
+		private void CtxToggle()
+		{
+			SetFlipEnabled(!FlipEnabled);
 		}
 
 		// Inspector uzerinden ekseni hizlica ayarlamak icin yardimci metodlar
